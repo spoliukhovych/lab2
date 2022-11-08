@@ -393,64 +393,10 @@ def addBtn2_2(dlg: ClssDialog1, folderName):
             l = os.listdir(folderName)
             l = checkfls(l)
 
-            def addBtnDlf2_2_1Func():
-                addBtnDlg2_2_1 = ClssDialog1()
-                addBtnDlg2_2_1.setWindowTitle(l[0])
-                addBtnDlg2_2_1.resize(600, 301)
-
-                addBtnDlg2_2_1.plainTextEdit = QtWidgets.QPlainTextEdit(addBtnDlg2_2_1)
-                addBtnDlg2_2_1.plainTextEdit.setGeometry(QtCore.QRect(0, 65, 600, 196))
-                addBtnDlg2_2_1.plainTextEdit.setObjectName("plainTextEdit")
-
-                filename1_1_1 = folderName + '\\' + l[0]
-
-                f = open(filename1_1_1, 'r')
-                fileText = f.read()
-                addBtnDlg2_2_1.plainTextEdit.setPlainText(fileText)
-                f.close()
-
-                addBtnDlg2_2_1.plainTextEdit_2 = QtWidgets.QPlainTextEdit(addBtnDlg2_2_1)
-                addBtnDlg2_2_1.plainTextEdit_2.setGeometry(QtCore.QRect(0, 20, 600, 25))
-                addBtnDlg2_2_1.plainTextEdit_2.setObjectName("plainTextEdit_2")
-                addBtnDlg2_2_1.plainTextEdit_2.setPlainText(l[0])
-
-                def rmwFile():
-                    os.remove(filename1_1_1)
-
-                addBtnDlg2_2_1.pushButton = QtWidgets.QPushButton(addBtnDlg2_2_1)
-                addBtnDlg2_2_1.pushButton.setText("Видалити")
-                addBtnDlg2_2_1.pushButton.setGeometry(530, 268, 60, 25)
-                addBtnDlg2_2_1.pushButton.clicked.connect(addBtnDlg2_2_1.close)
-                addBtnDlg2_2_1.pushButton.clicked.connect(rmwFile)
-
-                def send_to_arc():
-                    source_path = filename1_1_1
-                    destination_path = "Arc"
-                    shutil.move(source_path, destination_path)
-
-                addBtnDlg2_2_1.pushButton_2 = QtWidgets.QPushButton(addBtnDlg2_2_1)
-                addBtnDlg2_2_1.pushButton_2.setText("В архів")
-                addBtnDlg2_2_1.pushButton_2.setGeometry(460, 268, 60, 25)
-                addBtnDlg2_2_1.pushButton_2.clicked.connect(send_to_arc)
-                addBtnDlg2_2_1.pushButton_2.clicked.connect(addBtnDlg2_2_1.close)
-
-                addBtnDlg2_2_1.pushButton_3 = QtWidgets.QPushButton(addBtnDlg2_2_1)
-                addBtnDlg2_2_1.pushButton_3.setText("Вийти")
-                addBtnDlg2_2_1.pushButton_3.setGeometry(30, 268, 60, 25)
-                addBtnDlg2_2_1.pushButton_3.clicked.connect(addBtnDlg2_2_1.close)
-
-                addBtnDlg2_2_1.exec()
-
-            addBtnDlg2_2.pushButton_2 = QtWidgets.QPushButton(addBtnDlg2_2)
-            addBtnDlg2_2.pushButton_2.setObjectName("pushButton_2")
-            addBtnDlg2_2.verticalLayout.addWidget(addBtnDlg2_2.pushButton_2)
-            addBtnDlg2_2.pushButton_2.setText(l[0])
-            addBtnDlg2_2.pushButton_2.clicked.connect(addBtnDlf2_2_1Func)
-            addBtnDlg2_2.pushButton_2.clicked.connect(addBtnDlg2_2.close)
-
+            for i in l:
+                add_btn_folder(addBtnDlg2_2, folderName, i)
 
             addBtnDlg2_2.exec()
-
         else:
             addBtnDlg2_2 = ClssDialog1()
             addBtnDlg2_2.setWindowTitle(folderName)
@@ -477,13 +423,68 @@ def addBtn2_2(dlg: ClssDialog1, folderName):
 
             addBtnDlg2_2.exec()
 
-
     dlg.pushButton = QtWidgets.QPushButton(dlg)
     dlg.pushButton.setObjectName("pushButton")
     dlg.verticalLayout.addWidget(dlg.pushButton)
     dlg.pushButton.setText(folderName)
     dlg.pushButton.clicked.connect(addBtnDlg2_2Func)
     dlg.pushButton.clicked.connect(dlg.close)
+
+def add_btn_folder(dlg: ClssDialog1, folderName, filename):
+    def addBtnDlf2_2_1Func():
+        addBtnDlg2_2_1 = ClssDialog1()
+        addBtnDlg2_2_1.setWindowTitle(filename)
+        addBtnDlg2_2_1.resize(600, 301)
+
+        addBtnDlg2_2_1.plainTextEdit = QtWidgets.QPlainTextEdit(addBtnDlg2_2_1)
+        addBtnDlg2_2_1.plainTextEdit.setGeometry(QtCore.QRect(0, 65, 600, 196))
+        addBtnDlg2_2_1.plainTextEdit.setObjectName("plainTextEdit")
+
+        filename1_1_1 = folderName + '\\' + filename
+
+        f = open(filename1_1_1, 'r')
+        fileText = f.read()
+        addBtnDlg2_2_1.plainTextEdit.setPlainText(fileText)
+        f.close()
+
+        addBtnDlg2_2_1.plainTextEdit_2 = QtWidgets.QPlainTextEdit(addBtnDlg2_2_1)
+        addBtnDlg2_2_1.plainTextEdit_2.setGeometry(QtCore.QRect(0, 20, 600, 25))
+        addBtnDlg2_2_1.plainTextEdit_2.setObjectName("plainTextEdit_2")
+        addBtnDlg2_2_1.plainTextEdit_2.setPlainText(filename)
+
+        def rmwFile():
+            os.remove(filename1_1_1)
+
+        addBtnDlg2_2_1.pushButton = QtWidgets.QPushButton(addBtnDlg2_2_1)
+        addBtnDlg2_2_1.pushButton.setText("Видалити")
+        addBtnDlg2_2_1.pushButton.setGeometry(530, 268, 60, 25)
+        addBtnDlg2_2_1.pushButton.clicked.connect(addBtnDlg2_2_1.close)
+        addBtnDlg2_2_1.pushButton.clicked.connect(rmwFile)
+
+        def send_to_arc():
+            source_path = filename1_1_1
+            destination_path = "Arc"
+            shutil.move(source_path, destination_path)
+
+        addBtnDlg2_2_1.pushButton_2 = QtWidgets.QPushButton(addBtnDlg2_2_1)
+        addBtnDlg2_2_1.pushButton_2.setText("В архів")
+        addBtnDlg2_2_1.pushButton_2.setGeometry(460, 268, 60, 25)
+        addBtnDlg2_2_1.pushButton_2.clicked.connect(send_to_arc)
+        addBtnDlg2_2_1.pushButton_2.clicked.connect(addBtnDlg2_2_1.close)
+
+        addBtnDlg2_2_1.pushButton_3 = QtWidgets.QPushButton(addBtnDlg2_2_1)
+        addBtnDlg2_2_1.pushButton_3.setText("Вийти")
+        addBtnDlg2_2_1.pushButton_3.setGeometry(30, 268, 60, 25)
+        addBtnDlg2_2_1.pushButton_3.clicked.connect(addBtnDlg2_2_1.close)
+
+        addBtnDlg2_2_1.exec()
+
+    dlg.pushButton_2 = QtWidgets.QPushButton(dlg)
+    dlg.verticalLayout.addWidget(dlg.pushButton_2)
+    dlg.pushButton_2.setText(filename)
+    dlg.pushButton_2.clicked.connect(addBtnDlf2_2_1Func)
+    dlg.pushButton_2.clicked.connect(dlg.close)
+
 
 def save_note_in_folder(wdw: Ui_MainWindow, foldername):
     filename = wdw.plainTextEdit_2.toPlainText()
