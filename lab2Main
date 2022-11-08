@@ -40,8 +40,6 @@ class ClssDialog1(QtWidgets.QDialog):
     def btnClosed(self):
         self.close()
 
-listOfBtns2_1 = []
-
 def on_click_btn_1():
     def on_click_1_1():
         fdialog_1_1 = ClssDialog1()
